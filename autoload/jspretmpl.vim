@@ -41,12 +41,12 @@ function! jspretmpl#loadOtherSyntax(filetype)
   return group
 endfunction
 
-function! jspretmpl#applySyntax(filetype)
+function! jspretmpl#applySyntax(filetype, literal_tag)
   let group = s:tmplSyntaxGroup(a:filetype)
   let region = s:tmplSyntaxRegion(a:filetype)
   let b:jspre_current_ft = a:filetype
   if &ft == 'javascript' || &ft == 'typescript'
-    let regexp_start = '`'
+    let regexp_start = literal_tag.'`'
     let regexp_skip = '\\`'
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
@@ -72,8 +72,9 @@ function! jspretmpl#loadAndApply(...)
     return
   endif
   let l:ft = a:1
+  let l:literal_tag = (a:0 >=2) ? a:2 : ''
   call jspretmpl#loadOtherSyntax(l:ft)
-  call jspretmpl#applySyntax(l:ft)
+  call jspretmpl#applySyntax(l:ft, l:literal_tag)
 endfunction
 
 function! jspretmpl#clear()
