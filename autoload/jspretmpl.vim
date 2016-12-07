@@ -46,7 +46,7 @@ function! jspretmpl#applySyntax(filetype, literal_tag)
   let region = s:tmplSyntaxRegion(a:filetype)
   let b:jspre_current_ft = a:filetype
   if &ft == 'javascript' || &ft == 'typescript'
-    let regexp_start = literal_tag.'`'
+    let regexp_start = a:literal_tag.'`'
     let regexp_skip = '\\`'
     let regexp_end = '`'
     let group_def = 'start="'.regexp_start.'" skip="'.regexp_skip.'" end="'.regexp_end.'"'
